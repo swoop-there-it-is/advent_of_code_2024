@@ -31,18 +31,10 @@ def _get_total_distance_between_lists(location_ids_one: List[int], location_ids_
 
 
 def _get_similarities_between_lists(location_ids_one: List[int], location_ids_two: List[int]) -> int:
-    list_two_totals: dict[int: int] = {}
-    for location_id in location_ids_two:
-        if list_two_totals.get(location_id):
-            list_two_totals[location_id] += 1
-            continue
-        list_two_totals[location_id] = 1
-
     results = 0
     for location_id in location_ids_one:
-        total = list_two_totals.get(location_id, 0)
+        total = location_ids_two.count(location_id)
         results += (location_id * total)
-
     return results
 
 
