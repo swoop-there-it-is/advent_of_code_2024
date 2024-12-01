@@ -1,7 +1,4 @@
-import os
-
 from nicegui import ui
-from day_one import file
 from utils import aoc_utils
 
 style_sheet = """
@@ -11,12 +8,6 @@ style_sheet = """
                 }
             </style>
             """
-
-
-def get_results(arg):
-    user_data = int(arg.value)
-    results = file.func(user_data)
-    ui.notify(results)
 
 
 tabs: dict[int, ui.tab] = {}
@@ -29,13 +20,20 @@ with ui.tabs().classes("w-full") as tab:
 december_first = tabs[1]
 with ui.tab_panels(tab, value=december_first).classes("w-full"):
     for i in range(25):
-        tab = tabs[i + 1]
+        day_of_december = i + 1
+        tab = tabs[day_of_december]
         with ui.tab_panel(tab).style("background-color:#0e0f23;"):
-            data = ui.input(f"data for day {i + 1}").style("color:white;")
+            data = ui.input(f"data for day {day_of_december}").style("color:white;")
             ui.button(
-                "get results",
-                on_click=lambda d=data: get_results(
-                    d
+                "part one results",
+                on_click=lambda d=day_of_december, u=data: aoc_utils.get_results(
+                    d, u, 1
+                ),  # Use default argument to capture `data`
+            ).style('color: #0e0f23;')
+            ui.button(
+                "part two results",
+                on_click=lambda d=day_of_december, u=data: aoc_utils.get_results(
+                    d, u, 2
                 ),  # Use default argument to capture `data`
             ).style('color: #0e0f23;')
             christmas_tree_image_path = aoc_utils.get_christmas_tree_image_path()
