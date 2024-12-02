@@ -1,5 +1,7 @@
 from typing import List
 
+PUZZLE = "https://adventofcode.com/2024/day/2"
+
 
 def get_red_nosed_reactor_reports(data: str) -> List[List[int]]:
     reports = data.split("\n")

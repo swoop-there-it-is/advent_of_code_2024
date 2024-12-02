@@ -1,6 +1,8 @@
 from typing import List
 
 
+PUZZLE = "https://adventofcode.com/2024/day/1"
+
 def _get_location_ids(data: str) -> (List[int], List[int]):
     location_ids = data.split()
     list_one = []

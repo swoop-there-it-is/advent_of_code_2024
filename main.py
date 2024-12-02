@@ -23,26 +23,38 @@ with ui.tab_panels(tab, value=december_first).classes("w-full"):
         day_of_december = i + 1
         tab = tabs[day_of_december]
         with ui.tab_panel(tab).style("background-color:#0e0f23;"):
-            data = ui.textarea(label="Paste Data Here").props('input-style="color: white"')
+            puzzle: str = aoc_utils.get_puzzle(day_of_december)
+            message = (
+                f"Here's the link to the advent of code puzzle: \n\n {puzzle} \n\n"
+                "To get the answer, paste your puzzle input in the text area below."
+            )
+            ui.chat_message(
+                message, name="Robot", avatar="https://robohash.org/ui", stamp="Now"
+            )
+            data = ui.textarea(
+                label="Puzzle Input", value="Ex.)\n12 15 12 12\n23 4 4 5 6"
+            ).props('input-style="color: white"')
             with ui.row():
                 ui.button(
                     "part one results",
                     on_click=lambda d=day_of_december, u=data: aoc_utils.get_results(
                         d, u, 1
                     ),  # Use default argument to capture `data`
-                ).style('color: #0e0f23;')
+                ).style("color: #0e0f23;")
                 ui.button(
                     "part two results",
                     on_click=lambda d=day_of_december, u=data: aoc_utils.get_results(
                         d, u, 2
                     ),  # Use default argument to capture `data`
-                ).style('color: #0e0f23;')
+                ).style("color: #0e0f23;")
 
                 for _ in range(15):
                     ui.space()
 
                 christmas_tree_image_path = aoc_utils.get_christmas_tree_image_path()
-                ui.image(christmas_tree_image_path).style("width: 600px; height: 600px;")
+                ui.image(christmas_tree_image_path).style(
+                    "width: 600px; height: 600px;"
+                )
 
 
 ui.add_head_html(style_sheet)
