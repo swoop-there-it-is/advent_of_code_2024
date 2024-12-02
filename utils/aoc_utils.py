@@ -6,11 +6,13 @@ from nicegui import ui
 from nicegui.elements.input import Input
 
 from day_one import historian_hysteria
+from day_two import red_nosed_reports
 
 DayOfDecember = int
 
 functions: dict[DayOfDecember: Callable] = {
-    1: historian_hysteria.get_results
+    1: historian_hysteria.get_results,
+    2: red_nosed_reports.get_results
 }
 
 

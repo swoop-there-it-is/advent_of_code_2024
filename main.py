@@ -23,7 +23,7 @@ with ui.tab_panels(tab, value=december_first).classes("w-full"):
         day_of_december = i + 1
         tab = tabs[day_of_december]
         with ui.tab_panel(tab).style("background-color:#0e0f23;"):
-            data = ui.input(label="Paste Data Here").props('input-style="color: white"')
+            data = ui.textarea(label="Paste Data Here").props('input-style="color: white"')
             with ui.row():
                 ui.button(
                     "part one results",
