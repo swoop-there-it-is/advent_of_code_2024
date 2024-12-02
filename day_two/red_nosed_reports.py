@@ -19,54 +19,36 @@ def get_num_safe_reports(reports: List[List[int]], part: int) -> int:
 
 
 def is_report_safe(report: List[int], part: int, rerun: bool = False) -> bool:
-    if len(report) == 0:
+    if not report or len(report) < 2:
         return False
 
+    max_differences = 3
     failures = 0
-    issues: List[int] = [0]
+    issues = {0}
 
-    increasing = bool(report[0] < report[1])
-    for i in range(len(report)):
-        if i == 0:
-            continue
-        data_one = report[i-1]
-        data_two = report[i]
-        difference = 0
-        if data_one > data_two:
-            if increasing:
-                failures += 1
-                issues.append(i-1)
-                issues.append(i)
-                continue
-            difference = data_one - data_two
-        elif data_one < data_two:
-            if not increasing:
-                failures += 1
-                issues.append(i-1)
-                issues.append(i)
-                continue
-            difference = data_two - data_one
-        if difference > 3 or difference <= 0:
+    increasing = report[0] < report[1]
+
+    for i in range(1, len(report)):
+        prev, curr = report[i - 1], report[i]
+        difference = abs(curr - prev)
+
+        if (
+            (increasing and curr < prev)
+            or (not increasing and curr > prev)
+            or not (0 < difference <= max_differences)
+        ):
             failures += 1
-            issues.append(i-1)
-            issues.append(i)
-            continue
+            issues.update({i - 1, i})
 
     if failures == 0:
         return True
 
-    if part == 1:
+    if part == 1 or rerun:
         return False
 
-    if rerun:
-        # if this is a rerun just return False
-        # Still an issue even after removing the problem
-        return False
-
-    # try seeing if removing the issue fixes the problem
-    for index in issues:
-        new_report = report.copy()
-        del new_report[index]
+    # Try removing each problematic index and rerun
+    for index in sorted(issues):
+        new_report = report[:index] + report[index + 1:]
         if is_report_safe(new_report, part, rerun=True):
             return True
 
