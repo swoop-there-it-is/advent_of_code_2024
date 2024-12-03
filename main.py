@@ -26,14 +26,25 @@ with ui.tab_panels(tab, value=december_first).classes("w-full"):
             puzzle: str = aoc_utils.get_puzzle(day_of_december)
             message = (
                 f"Here's the link to the advent of code puzzle: \n\n {puzzle} \n\n"
-                "To get the answer, paste your puzzle input in the text area below."
+                "To get the answer, paste your puzzle input in the text area to the left."
             )
-            ui.chat_message(
-                message, name="Robot", avatar="https://robohash.org/ui", stamp="Now"
-            )
-            data = ui.textarea(
-                label="Puzzle Input", value="Ex.)\n12 15 12 12\n23 4 4 5 6"
-            ).props('input-style="color: white"')
+
+            ui.label("Puzzle Input:").style("color:white;")
+            with ui.row():
+                data = ui.textarea(
+                    value="12 15 12 12\n"
+                          "23 4 4 5 6\n"
+                          "12 41 41 4 5 7\n"
+                          "12 7 89 24\n"
+                          "12 15 12 12\n"
+                          "23 4 4 5 6\n"
+                          "12 41 41 4 5 7\n"
+                          "12 7 89 24"
+                ).props('input-style="color: green"')
+                ui.chat_message(
+                    message, name="Robot", avatar="https://robohash.org/ui", stamp="Now"
+                )
+
             with ui.row():
                 ui.button(
                     "part one results",
