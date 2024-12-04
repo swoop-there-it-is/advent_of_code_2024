@@ -6,18 +6,21 @@ from nicegui import ui
 from nicegui.elements.input import Input
 
 from day_one import historian_hysteria
+from day_three import mull_it_over
 from day_two import red_nosed_reports
 
 DayOfDecember = int
 
 functions: dict[DayOfDecember: Callable] = {
     1: historian_hysteria.get_results,
-    2: red_nosed_reports.get_results
+    2: red_nosed_reports.get_results,
+    3: mull_it_over.get_results
 }
 
 puzzles: dict[DayOfDecember: str] = {
     1: historian_hysteria.PUZZLE,
     2: red_nosed_reports.PUZZLE,
+    3: mull_it_over.PUZZLE
 }
 
 
